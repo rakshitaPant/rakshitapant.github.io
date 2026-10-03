@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rakshita Pant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1:#F6D9C0;
+    --bg-2:#F3BBCE;
+    --bg-3:#E2B9E8;
+    --cream:#FFFDF6;
+    --cream-2:#FBF3E7;
+    --ink:#1B140F;
+    --ink-soft:#4A3F38;
+    --ink-faint:#5E5048;
+    --pink:#E8338F;
+    --orange:#E8622A;
+    --purple:#8B3FD4;
+    --yellow:#F2A93B;
+    --green:#3FAE6A;
+    --chart-amber:#C97E12;
+    --chart-green:#1F8F5C;
+    --font-display:'Lora', Georgia, 'Times New Roman', serif;
+    --font-body:'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono:'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sh-lg:8px 8px 0 0 var(--ink);
+    --sh-md:5px 5px 0 0 var(--ink);
+    --sh-sm:3px 3px 0 0 var(--ink);
+  }
+
+  *{box-sizing:border-box;}
+  [hidden]{ display:none !important; }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 55%, var(--bg-3) 100%);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--pink); text-decoration-color:currentColor; text-underline-offset:3px; font-weight:500;}
+  a:hover{ color:var(--orange); }
+  a:focus-visible, button:focus-visible, summary:focus-visible{
+    outline:3px solid var(--ink);
+    outline-offset:2px;
+    border-radius:4px;
+  }
+
+  h1,h2,h3{
+    font-family:var(--font-display);
+    font-weight:700;
+    text-wrap:balance;
+    margin:0;
+    color:var(--ink);
+  }
+
+  .block{
+    background:var(--cream);
+    border:3px solid var(--ink);
+    border-radius:24px;
+    box-shadow:var(--sh-lg);
+    padding:34px clamp(18px,4vw,44px);
+    margin-bottom:28px;
+  }
+
+  .section-head{ margin-bottom:24px; }
+  .section-head .kicker{
+    font-family:var(--font-mono);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--purple);
+  }
+  .section-head h2{ font-size:clamp(1.5rem, 3vw, 1.9rem); margin-top:6px; }
+  .bar{
+    display:block; width:66px; height:6px; border-radius:4px; margin-top:12px;
+    background:linear-gradient(90deg, var(--yellow), var(--pink), var(--purple));
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-body); font-weight:700; font-size:14px;
+    padding:10px 18px; border:3px solid var(--ink); border-radius:12px;
+    color:var(--ink); background:var(--cream); text-decoration:none;
+    box-shadow:var(--sh-sm); transition:transform .12s ease, box-shadow .12s ease;
+    cursor:pointer; white-space:nowrap;
+  }
+  .btn:hover{ transform:translate(3px,3px); box-shadow:0 0 0 0 var(--ink); }
+  .btn-pink{ background:var(--pink); color:#fff; }
+  .btn-orange{ background:var(--orange); color:#fff; }
+  .btn-block{ width:100%; justify-content:center; }
+
+  .pill{
+    display:inline-block; font-family:var(--font-mono); font-size:11.5px; font-weight:700;
+    color:var(--ink); background:var(--yellow); border:2px solid var(--ink);
+    padding:5px 12px; border-radius:100px; white-space:nowrap;
+  }
+  .pill-alt{ background:var(--purple); color:#fff; }
+
+  /* ---------- App shell: sidebar + content ---------- */
+  .shell{
+    max-width:1180px;
+    margin:0 auto;
+    padding:24px 20px 60px;
+    display:flex;
+    align-items:flex-start;
+    gap:24px;
+  }
+  .sidebar{
+    position:sticky;
+    top:24px;
+    width:260px;
+    flex:none;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .side-card{
+    background:var(--cream);
+    border:3px solid var(--ink);
+    border-radius:24px;
+    box-shadow:var(--sh-md);
+    padding:24px 20px;
+  }
+  .avatar{
+    width:76px; height:76px; border-radius:50%;
+    display:grid; place-items:center;
+    background:var(--pink); color:#fff;
+    border:3px solid var(--ink);
+    font-family:var(--font-mono); font-weight:700; font-size:22px;
+    margin-bottom:14px;
+    overflow:hidden;
+  }
+  .avatar img{ width:100%; height:100%; object-fit:cover; }
+  .side-card h1{ font-size:21px; line-height:1.15; }
+  .side-role{
+    font-family:var(--font-mono); font-weight:700; font-size:11.5px;
+    color:var(--ink-soft); margin-top:8px; letter-spacing:0.02em;
+  }
+  .side-loc{ font-size:13px; color:var(--ink-soft); margin-top:10px; }
+  .side-open{ margin-top:12px; display:flex; flex-wrap:wrap; gap:6px; }
+
+  .side-nav{ display:flex; flex-direction:column; gap:10px; }
+  .side-link{
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--font-display); font-weight:700; font-size:16px;
+    padding:13px 18px; border:3px solid var(--ink); border-radius:16px;
+    background:var(--cream); color:var(--ink);
+    box-shadow:var(--sh-sm); cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .side-link:hover{ transform:translate(2px,2px); box-shadow:1px 1px 0 0 var(--ink); }
+  .side-link.active{ background:var(--purple); color:#fff; }
+  .side-link .arrow{ font-family:var(--font-mono); font-size:14px; }
+
+  .side-contact{ display:flex; flex-direction:column; gap:10px; }
+
+  .content{ flex:1; min-width:0; }
+  .view-intro{ margin-bottom:28px; }
+  .view-intro h2{ font-size:clamp(1.8rem,4vw,2.4rem); }
+  .view-intro p{ max-width:62ch; color:var(--ink-soft); font-size:17px; margin-top:14px; }
+
+  .tag-link{
+    font-family:var(--font-mono); font-size:12px; font-weight:700;
+    background:var(--cream-2); border:2px solid var(--ink); border-radius:100px;
+    padding:6px 14px; color:var(--ink); cursor:pointer;
+    transition:transform .12s ease, background .12s ease;
+  }
+  .tag-link:hover{ background:var(--yellow); transform:translate(1px,1px); }
+  .industry-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+
+  /* ---------- About body ---------- */
+  .about-body p{ color:var(--ink-soft); max-width:60ch; }
+  .about-body p + p{ margin-top:14px; }
+
+  /* ---------- Impact at a Glance: stat grid ---------- */
+  .impact-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:16px; margin-top:22px; }
+  .impact-stat{ background:var(--cream-2); border:2.5px solid var(--ink); border-radius:16px; padding:18px 20px; box-shadow:var(--sh-sm); }
+  .impact-num{ font-family:var(--font-mono); font-weight:700; font-size:30px; line-height:1; }
+  .impact-stat:nth-child(1) .impact-num{ color:var(--pink); }
+  .impact-stat:nth-child(2) .impact-num{ color:var(--purple); }
+  .impact-stat:nth-child(3) .impact-num{ color:var(--chart-amber); }
+  .impact-stat:nth-child(4) .impact-num{ color:var(--chart-green); }
+  .impact-stat:nth-child(5) .impact-num{ color:var(--pink); }
+  .impact-stat:nth-child(6) .impact-num{ color:var(--purple); }
+  .impact-stat:nth-child(7) .impact-num{ color:var(--chart-green); }
+  .impact-stat:nth-child(7){ grid-column:1/-1; }
+  .impact-stat-label{ font-size:13px; font-weight:700; margin-top:8px; line-height:1.3; }
+  .impact-stat-label small{ display:block; font-family:var(--font-mono); font-weight:400; font-size:10.5px; color:var(--ink-faint); margin-top:4px; }
+  .impact-bar{ height:10px; background:var(--cream); border:2px solid var(--ink); border-radius:6px; overflow:hidden; margin-top:10px; }
+  .impact-bar-fill{ height:100%; }
+  .impact-spark{ display:block; width:100%; height:34px; margin-top:10px; }
+  .impact-checks{ display:flex; gap:8px; margin-top:10px; }
+
+  /* ---------- Experience timeline ---------- */
+  .timeline{ display:flex; flex-direction:column; }
+  .tl-item{
+    display:grid; grid-template-columns:130px 1fr; gap:20px;
+    padding-block:24px; border-top:2px dashed var(--ink-faint);
+  }
+  .tl-item:first-child{ border-top:none; padding-top:4px; }
+  .tl-date{ font-family:var(--font-mono); font-weight:700; font-size:12.5px; color:var(--ink-faint); padding-top:4px; }
+  .tl-index{
+    display:inline-block; font-family:var(--font-mono); font-weight:700; font-size:11.5px;
+    color:#fff; background:var(--pink); border:2px solid var(--ink);
+    padding:1px 8px; border-radius:6px; margin-bottom:6px;
+  }
+  .tl-role{ font-family:var(--font-display); font-size:19px; font-weight:700; }
+  .tl-org{ color:var(--ink-soft); font-size:14.5px; margin-top:2px; }
+  .tl-bullets{ list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .tl-bullets li{ position:relative; padding-left:18px; font-size:14.5px; color:var(--ink-soft); }
+  .tl-bullets li::before{ content:"★"; position:absolute; left:0; top:0; font-size:11px; color:var(--orange); }
+
+  /* ---------- Case studies ---------- */
+  .case-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:20px; }
+  .case{
+    background:var(--cream-2); border:2.5px solid var(--ink); border-radius:16px;
+    padding:22px; box-shadow:var(--sh-md); display:flex; flex-direction:column;
+  }
+  .tag{
+    display:inline-block; font-family:var(--font-mono); font-weight:700; font-size:11px;
+    color:#fff; border:2px solid var(--ink); padding:3px 10px; border-radius:100px; width:fit-content;
+  }
+  .tag-pink{ background:var(--pink); }
+  .tag-orange{ background:var(--orange); }
+  .tag-purple{ background:var(--purple); }
+  .tag-yellow{ background:var(--yellow); color:var(--ink); }
+  .tag-green{ background:var(--green); }
+  .tag-ink{ background:var(--ink); }
+
+  /* ---------- Portfolio filters ---------- */
+  .filter-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+  .filter-btn{
+    font-family:var(--font-mono); font-weight:700; font-size:12px;
+    color:var(--ink); background:var(--cream-2); border:2px solid var(--ink);
+    padding:7px 14px; border-radius:100px; cursor:pointer;
+    box-shadow:var(--sh-sm); transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .filter-btn:hover{ transform:translate(2px,2px); box-shadow:0 0 0 0 var(--ink); }
+  .filter-btn.active{ color:#fff; box-shadow:0 0 0 0 var(--ink); transform:translate(2px,2px); }
+  .filter-btn[data-filter="all"].active{ background:var(--ink); }
+  .filter-btn[data-filter="Healthcare"].active{ background:var(--pink); }
+  .filter-btn[data-filter="Financial Services"].active{ background:var(--purple); }
+  .filter-btn[data-filter="Technology & Manufacturing"].active{ background:var(--orange); }
+  .filter-btn[data-filter="Investment Management"].active{ background:var(--yellow); color:var(--ink); }
+  .filter-btn[data-filter="Life Sciences"].active{ background:var(--green); }
+  .case h3{ font-size:19px; margin-top:12px; line-height:1.25; }
+  .case-sub{ margin-top:10px; color:var(--ink-soft); font-size:14.5px; }
+  .case-stats{
+    display:flex; gap:18px; margin:16px 0 0; padding:14px 0;
+    border-top:2px dashed var(--ink-faint); border-bottom:2px dashed var(--ink-faint);
+  }
+  .case-stats div{ flex:1; }
+  .case-stats dt{ font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.04em; }
+  .case-stats dd{ margin:4px 0 0; font-size:13.5px; color:var(--ink); font-weight:700; }
+  .case details{ margin-top:16px; }
+  .case summary{ cursor:pointer; font-size:13.5px; font-weight:700; color:var(--pink); list-style:none; }
+  .case summary::-webkit-details-marker{ display:none; }
+  .case summary::after{ content:" →"; }
+  .case details[open] summary::after{ content:" ↓"; }
+  .case details[open] summary{ margin-bottom:10px; }
+  .case details p{ font-size:14px; color:var(--ink-soft); margin:0 0 10px; }
+  .case details p strong{ color:var(--ink); }
+  .stack{ margin-top:auto; padding-top:16px; display:flex; flex-wrap:wrap; gap:6px; }
+  .stack span{ font-family:var(--font-mono); font-size:11px; color:var(--ink); background:#fff; border:1.5px solid var(--ink); padding:3px 9px; border-radius:7px; }
+
+  /* ---------- Skills ---------- */
+  .pillar-list{ display:flex; flex-direction:column; gap:16px; }
+  .pillar{
+    padding:18px 22px; background:var(--cream-2); border:2.5px solid var(--ink);
+    border-radius:16px; box-shadow:var(--sh-sm);
+  }
+  .pillar h4{
+    font-family:var(--font-mono); font-size:12.5px; font-weight:700;
+    letter-spacing:0.05em; text-transform:uppercase; margin:0 0 8px;
+  }
+  .pillar:nth-child(4n+1) h4{ color:var(--pink); }
+  .pillar:nth-child(4n+2) h4{ color:var(--orange); }
+  .pillar:nth-child(4n+3) h4{ color:var(--purple); }
+  .pillar:nth-child(4n+4) h4{ color:#2a9a60; }
+  .pillar p{ margin:0; color:var(--ink-soft); font-size:14.5px; }
+  .skill-chips{ display:flex; flex-wrap:wrap; gap:10px; }
+  .skill-chips span{
+    font-size:14px; font-weight:500; padding:8px 14px; border-radius:10px;
+    background:#fff; border:2px solid var(--ink); color:var(--ink); box-shadow:var(--sh-sm);
+  }
+  .life-chip{ font-family:var(--font-display); font-weight:700; color:var(--ink) !important; border:2px solid var(--ink) !important; box-shadow:var(--sh-sm); }
+  .life-chip:nth-child(4n+1){ background:var(--pink) !important; color:#fff !important; }
+  .life-chip:nth-child(4n+2){ background:var(--orange) !important; color:#fff !important; }
+  .life-chip:nth-child(4n+3){ background:var(--purple) !important; color:#fff !important; }
+  .life-chip:nth-child(4n+4){ background:var(--yellow) !important; color:var(--ink) !important; }
+
+  /* ---------- Credentials & education ---------- */
+  .cred-grid{ display:flex; flex-wrap:wrap; gap:28px; }
+  .cred-card{ display:flex; flex-direction:column; align-items:center; text-align:center; width:150px; }
+  .cred-badge{
+    display:grid; place-items:center; width:84px; height:84px; border-radius:50%;
+    border:3px solid var(--ink); box-shadow:var(--sh-sm);
+    font-family:var(--font-mono); font-weight:700; font-size:15px; color:#fff; margin-bottom:10px;
+  }
+  .cred-card:nth-child(1) .cred-badge{ background:var(--pink); }
+  .cred-card:nth-child(2) .cred-badge{ background:var(--orange); }
+  .cred-card:nth-child(3) .cred-badge{ background:var(--purple); }
+  .cred-card h4{ font-family:var(--font-display); font-size:15px; font-weight:700; margin:0 0 2px; }
+  .cred-card p{ font-size:12.5px; color:var(--ink-soft); margin:0; }
+  .edu-row{ margin-top:26px; padding-top:22px; border-top:2px dashed var(--ink-faint); display:flex; flex-wrap:wrap; gap:28px; }
+  .edu-row .edu-school{ font-weight:700; font-size:14.5px; }
+  .edu-row .edu-detail{ color:var(--ink-soft); font-size:13.5px; margin-top:2px; }
+  .resume-note{
+    margin-top:26px; padding-top:18px; border-top:2px dashed var(--ink-faint);
+    font-size:13px; color:var(--ink-soft);
+  }
+
+  /* ---------- Beyond the work ---------- */
+  .life-grid{ display:grid; grid-template-columns:1.4fr 1fr; gap:40px; }
+
+  /* ---------- Contact block ---------- */
+  .foot-pitch{ max-width:52ch; color:var(--ink-soft); margin-top:14px; }
+  .foot-note{ margin-top:22px; font-size:13px; color:var(--ink-faint); }
+  .scroll-end{
+    text-align:center; margin-top:24px; padding-top:20px; border-top:2px dashed var(--ink-faint);
+    font-family:var(--font-mono); font-size:12.5px; color:var(--ink-faint);
+  }
+
+  @media (max-width: 900px){
+    .shell{ flex-direction:column; }
+    .sidebar{ position:static; width:100%; flex-direction:row; flex-wrap:wrap; }
+    .side-card{ flex:1; min-width:160px; }
+    .side-nav{ flex-direction:row; flex:1; min-width:160px; }
+    .side-link{ flex:1; justify-content:center; }
+    .side-contact{ flex-direction:row; flex:1; min-width:160px; }
+    .btn-block{ width:auto; }
+  }
+  @media (max-width: 640px){
+    .life-grid{ grid-template-columns:1fr; gap:24px; }
+    .case-grid{ grid-template-columns:1fr; }
+    .tl-item{ grid-template-columns:1fr; gap:6px; }
+    .block{ padding:24px 16px; border-radius:18px; }
+    .sidebar{ flex-direction:column; }
+    .impact-row{ grid-template-columns:1fr; gap:6px; }
+    .impact-value{ text-align:left; }
+    .impact-axis{ display:none; }
+    .impact-tiles{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="side-card">
+      <div class="avatar">RP</div>
+      <h1>Rakshita Pant</h1>
+      <div class="side-role">PROJECT MANAGER<br>DATA &amp; AI PLATFORMS</div>
+      <div class="side-loc">Seattle, WA · Remote</div>
+      <div class="side-open">
+        <span class="pill pill-alt">5+ Years Experience</span>
+        <span class="pill">Open to PM &amp; Program roles</span>
+      </div>
+    </div>
+
+    <nav class="side-nav">
+      <button class="side-link active" data-view="about">About Me <span class="arrow">→</span></button>
+      <button class="side-link" data-view="resume">Resume <span class="arrow">→</span></button>
+      <button class="side-link" data-view="portfolio">Portfolio <span class="arrow">→</span></button>
+    </nav>
+
+    <div class="side-card side-contact">
+      <a class="btn btn-pink btn-block" href="mailto:rakshitapant1317@gmail.com">✉ Email</a>
+      <a class="btn btn-orange btn-block" href="https://www.linkedin.com/in/rakshita-pant/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <section id="view-about">
+
+      <div class="block">
+        <div class="view-intro">
+          <h2>About Me</h2>
+          <p>I'm a Project Manager working on data and AI platforms at kipi.ai. Over the last 5+ years I've moved between product, customer success, and project delivery roles, always working directly on enterprise data and AI platforms.</p>
+        </div>
+        <div class="about-body">
+          <p>I started in data analytics, moved into business development and go-to-market work, then into customer success, and now own full product and delivery lifecycle for enterprise data and AI platforms at kipi.ai, a Capgemini company.</p>
+          <p>I completed a Master's in Engineering Technology at Purdue while working full-time. Most of my work sits between technology and business, I can get into the technical details with engineers and also make the case to business leadership.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="section-head">
+          <p class="kicker">Impact</p>
+          <h2>Impact at a Glance</h2>
+          <span class="bar"></span>
+        </div>
+        <p style="color:var(--ink-soft); max-width:60ch;">Program delivery and stakeholder outcomes, pulled straight from my real work.</p>
+
+        <div class="impact-grid">
+          <div class="impact-stat">
+            <div class="impact-num">100%</div>
+            <div class="impact-bar"><div class="impact-bar-fill" style="width:100%; background:var(--pink);"></div></div>
+            <div class="impact-stat-label">SLA Compliance<small>Enterprise Account Portfolio</small></div>
+          </div>
+          <div class="impact-stat">
+            <div class="impact-num">$1M+</div>
+            <svg class="impact-spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true">
+              <polyline points="4,30 32,24 60,20 88,12 116,6" fill="none" stroke="var(--purple)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="4" cy="30" r="3.5" fill="var(--cream-2)" stroke="var(--purple)" stroke-width="2"/>
+              <circle cx="116" cy="6" r="4.5" fill="var(--purple)"/>
+            </svg>
+            <div class="impact-stat-label">Annual Cost Savings Delivered<small>Platform Modernization Program</small></div>
+          </div>
+          <div class="impact-stat">
+            <div class="impact-num">65%</div>
+            <svg class="impact-spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true">
+              <polyline points="4,30 32,25 60,21 88,15 116,10" fill="none" stroke="var(--chart-amber)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="4" cy="30" r="3.5" fill="var(--cream-2)" stroke="var(--chart-amber)" stroke-width="2"/>
+              <circle cx="116" cy="10" r="4.5" fill="var(--chart-amber)"/>
+            </svg>
+            <div class="impact-stat-label">User Adoption, Pre-Launch to First Quarter<small>Internal AI Platform Launch</small></div>
+          </div>
+          <div class="impact-stat">
+            <div class="impact-num">37%</div>
+            <svg class="impact-spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true">
+              <polyline points="4,26 32,21 60,18 88,11 116,8" fill="none" stroke="var(--chart-green)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="4" cy="26" r="3.5" fill="var(--cream-2)" stroke="var(--chart-green)" stroke-width="2"/>
+              <circle cx="116" cy="8" r="4.5" fill="var(--chart-green)"/>
+            </svg>
+            <div class="impact-stat-label">Revenue Growth, Year over Year<small>Regional Growth Strategy</small></div>
+          </div>
+          <div class="impact-stat">
+            <div class="impact-num">20</div>
+            <div class="impact-stat-label">Enterprise Accounts Managed<small>Account Portfolio Oversight</small></div>
+          </div>
+          <div class="impact-stat">
+            <div class="impact-num">200+</div>
+            <div class="impact-stat-label">Stakeholders Enabled<small>Platform Rollout</small></div>
+          </div>
+          <div class="impact-stat">
+            <div class="impact-num">Zero</div>
+            <div class="impact-checks" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="10" fill="var(--chart-green)" stroke="var(--ink)" stroke-width="2"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+              <svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="10" fill="var(--chart-green)" stroke="var(--ink)" stroke-width="2"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+              <svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="10" fill="var(--chart-green)" stroke="var(--ink)" stroke-width="2"/><path d="M7 12.5l3 3 7-7" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </div>
+            <div class="impact-stat-label">Disruption Across 3 Major Migrations<small>Healthcare, Financial Services &amp; Internal Platforms</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="section-head">
+          <p class="kicker">Toolkit</p>
+          <h2>Skills &amp; Stack</h2>
+          <span class="bar"></span>
+        </div>
+        <div class="pillar-list">
+          <div class="pillar">
+            <h4>Stakeholder &amp; Executive Alignment</h4>
+            <p>I've built the business case for platform migrations and presented it to executive sponsors, then owned the delivery timeline myself.</p>
+          </div>
+          <div class="pillar">
+            <h4>Data &amp; AI Platform Delivery</h4>
+            <p>I've shipped Snowflake Cortex and LLM-powered tools that enterprise teams use daily, not just prototypes.</p>
+          </div>
+          <div class="pillar">
+            <h4>Cross-Functional &amp; Risk Management</h4>
+            <p>I've run hard-deadline programs across engineering, analytics, and client teams, tracking risk and keeping delivery on schedule.</p>
+          </div>
+          <div class="pillar">
+            <h4>Agile Delivery &amp; Process</h4>
+            <p>I'm a Certified ScrumMaster who runs sprint planning, backlog grooming, and retrospectives as part of how I deliver, not just a credential on paper.</p>
+          </div>
+        </div>
+        <p style="margin-top:18px; font-size:13px; color:var(--ink-faint);">Tools: Snowflake, Snowflake Cortex, dbt, Tableau, Power BI, SQL, Python, Jira, Git</p>
+      </div>
+
+      <div class="block">
+        <div class="section-head">
+          <p class="kicker">Work</p>
+          <h2>Portfolio Snapshot</h2>
+          <span class="bar"></span>
+        </div>
+        <p style="color:var(--ink-soft); max-width:60ch;">Enterprise data and AI platform work across five industries, from healthcare systems to investment research. Jump into a sector below, or browse the full set.</p>
+        <div class="industry-row" style="margin-top:18px;">
+          <button class="tag-link" data-filter="Healthcare">Healthcare</button>
+          <button class="tag-link" data-filter="Financial Services">Financial Services</button>
+          <button class="tag-link" data-filter="Technology &amp; Manufacturing">Technology &amp; Manufacturing</button>
+          <button class="tag-link" data-filter="Investment Management">Investment Management</button>
+          <button class="tag-link" data-filter="Life Sciences">Life Sciences</button>
+        </div>
+        <button class="btn btn-pink portfolio-cta" style="margin-top:22px;">View Full Portfolio →</button>
+      </div>
+
+      <div class="block">
+        <div class="section-head">
+          <p class="kicker">Get in touch</p>
+          <h2>Let's talk about what you're building.</h2>
+          <span class="bar"></span>
+        </div>
+        <p class="foot-pitch">I'm looking at Project Manager, Program Manager, and Product Manager roles, ideally where data and AI platforms are part of the job, not just the pitch.</p>
+        <div class="industry-row" style="margin-top:20px;">
+          <a class="btn btn-pink" href="mailto:rakshitapant1317@gmail.com">✉ Email Me</a>
+          <a class="btn btn-orange" href="https://www.linkedin.com/in/rakshita-pant/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+        <p class="foot-note">Client and project details in the Portfolio section are described generically to respect engagement confidentiality. Specifics are available on request or in interviews.</p>
+      </div>
+
+      <div class="block">
+        <div class="section-head">
+          <p class="kicker">Off Duty</p>
+          <h2>Beyond the Work</h2>
+          <span class="bar"></span>
+        </div>
+        <div class="life-grid">
+          <div class="about-body">
+            <p>Before any of the roadmaps and dashboards, I grew up moving between a lot of different rooms: a karate dojo, a debate stage, a dance floor, a piano bench, a painting easel, and always a book in hand. None of it was professional, all of it shaped how I think, show up, and solve problems under pressure.</p>
+            <p>Painting is the one I keep coming back to, even if I haven't been consistent with it. It's something I'm deliberately making more room for in the next few years, not as a side project with a deadline, just because I missed it.</p>
+          </div>
+          <div class="skill-chips" style="align-content:flex-start;">
+            <span class="life-chip">Karate</span>
+            <span class="life-chip">Reading</span>
+            <span class="life-chip">Debate</span>
+            <span class="life-chip">Dance</span>
+            <span class="life-chip">Painting</span>
+            <span class="life-chip">Piano</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="view-resume" hidden>
+
+      <div class="block">
+        <div class="view-intro">
+          <h2>Resume</h2>
+          <p>Full work history and credentials. For the detailed project write-ups behind each role, see the Portfolio tab.</p>
+        </div>
+
+        <div class="timeline">
+
+          <div class="tl-item">
+            <div class="tl-date">Jan 2025<br>to Present</div>
+            <div>
+              <span class="tl-index">01</span>
+              <div class="tl-role">Project Manager, Data &amp; AI Platforms</div>
+              <div class="tl-org">kipi.ai (Capgemini) · Remote from Seattle, WA</div>
+              <ul class="tl-bullets">
+                <li>Own project and delivery strategy for enterprise data and AI platform engagements spanning healthcare, finance, manufacturing, and life sciences clients.</li>
+                <li>Led migration of 120+ executive dashboards to a modern cloud stack, eliminating $1M+ in annual licensing costs.</li>
+                <li>Designed and launched an LLM-powered analytics assistant adopted by 200+ stakeholders, cutting reporting turnaround from 48 hours to under 24.</li>
+                <li>Own quarterly roadmap planning across concurrent workstreams, balancing delivery, governance, and technical debt.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tl-item" style="opacity:0.85;">
+            <div class="tl-date">2024<br>to 2025</div>
+            <div>
+              <span class="tl-index" style="background:var(--purple);">EDU</span>
+              <div class="tl-role" style="font-size:16px;">MS, Engineering Technology</div>
+              <div class="tl-org">Purdue University, while working full-time</div>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-date">Nov 2022<br>to Dec 2023</div>
+            <div>
+              <span class="tl-index">02</span>
+              <div class="tl-role">Customer Success Manager, Platform Strategy &amp; Delivery</div>
+              <div class="tl-org">kipi.ai, Remote</div>
+              <ul class="tl-bullets">
+                <li>Drove platform adoption across 20 enterprise accounts, turning usage analytics and voice-of-customer insight into a prioritized backlog.</li>
+                <li>Improved SLA compliance to 100% and cut average resolution time by 30% by redesigning the handoff workflow between engineering and support.</li>
+                <li>Fed structured escalation trend analysis into roadmap decisions alongside the product team.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-date">Oct 2020<br>to Oct 2022</div>
+            <div>
+              <span class="tl-index">03</span>
+              <div class="tl-role">Product Manager</div>
+              <div class="tl-org">Häfele India Pvt. Ltd. (global hardware &amp; architectural fittings company), New Delhi</div>
+              <ul class="tl-bullets">
+                <li>Led regional growth strategy and channel partnerships, driving 37% year-over-year revenue growth.</li>
+                <li>Ran structured market discovery and competitive benchmarking that fed into global product roadmap decisions.</li>
+                <li>Owned pricing strategy and go-to-market planning for new product launches.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-date">May 2019<br>to Aug 2019</div>
+            <div>
+              <span class="tl-index">04</span>
+              <div class="tl-role">Marketing Data Analyst</div>
+              <div class="tl-org">BW Businessworld, New Delhi</div>
+              <ul class="tl-bullets">
+                <li>Analyzed three years of campaign performance data to identify a $2.7M revenue gap and inform monetization strategy.</li>
+                <li>Delivered data-driven insights that supported closing a $16K strategic partnership agreement.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="section-head">
+          <p class="kicker">Proof</p>
+          <h2>Credentials &amp; Education</h2>
+          <span class="bar"></span>
+        </div>
+        <div class="cred-grid">
+          <div class="cred-card">
+            <div class="cred-badge">CSM</div>
+            <h4>Certified ScrumMaster</h4>
+            <p>Scrum Alliance</p>
+          </div>
+          <div class="cred-card">
+            <div class="cred-badge">IBM</div>
+            <h4>Product Manager Certification</h4>
+            <p>IBM</p>
+          </div>
+          <div class="cred-card">
+            <div class="cred-badge">SF</div>
+            <h4>Technical Sales Professional</h4>
+            <p>Snowflake Accreditation</p>
+          </div>
+        </div>
+        <div class="edu-row">
+          <div>
+            <div class="edu-school">Purdue University</div>
+            <div class="edu-detail">MS, Engineering Technology · 2024 to 2025 · completed while working full-time</div>
+          </div>
+          <div>
+            <div class="edu-school">Delhi University</div>
+            <div class="edu-detail">Bachelor's Degree</div>
+          </div>
+        </div>
+        <p class="resume-note">Authorized to work in the US without employer sponsorship, now or in the future. Want this as a PDF? <a href="mailto:rakshitapant1317@gmail.com">Email me</a> and I'll send one over.</p>
+      </div>
+
+    </section>
+
+    <section id="view-portfolio" hidden>
+
+      <div class="block">
+        <div class="view-intro">
+          <h2>Portfolio</h2>
+          <p>Selected case studies from enterprise data and AI platform engagements. Client names are generalized to respect engagement confidentiality.</p>
+          <div class="filter-row">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="Healthcare">Healthcare</button>
+            <button class="filter-btn" data-filter="Financial Services">Financial Services</button>
+            <button class="filter-btn" data-filter="Technology &amp; Manufacturing">Technology &amp; Manufacturing</button>
+            <button class="filter-btn" data-filter="Investment Management">Investment Management</button>
+            <button class="filter-btn" data-filter="Life Sciences">Life Sciences</button>
+          </div>
+        </div>
+
+        <div class="case-grid" id="case-grid">
+
+          <article class="case" data-industry="Financial Services">
+            <span class="tag tag-purple">Financial Services</span>
+            <h3>Core Data Platform Exit &amp; Modernization</h3>
+            <p class="case-sub">A regional credit union faced a hard contract deadline with 1,600 pieces of undocumented transformation logic and 185 dashboards at risk.</p>
+            <dl class="case-stats">
+              <div><dt>Cost reduction</dt><dd>50 to 60%</dd></div>
+              <div><dt>Dashboard load time</dt><dd>30% faster</dd></div>
+            </dl>
+            <details>
+              <summary>Read the full case study</summary>
+              <p><strong>Problem.</strong> The client's legacy BI contract was expiring on a hard date. 1,600 queries of transformation logic had no documentation, and 185 dashboards used daily by sales and marketing were at risk of going dark.</p>
+              <p><strong>Approach.</strong> I ran the exit as a structured program: built a governed star schema model, directly migrated half the transformation logic to the new warehouse while coaching the client's team through the rest, then led the dashboard migration under a shared design and governance framework.</p>
+              <p><strong>Outcome.</strong> 100% of owned scope delivered on deadline, 50 to 60% lower platform licensing costs, and a 30% cut in dashboard load times with zero disruption to business reporting.</p>
+            </details>
+            <div class="stack"><span>Snowflake</span><span>dbt</span><span>Matillion</span><span>Tableau</span><span>SchemaChange</span></div>
+          </article>
+
+          <article class="case" data-industry="Life Sciences">
+            <span class="tag tag-green">Life Sciences</span>
+            <h3>Agentic AI for Commercial Analytics</h3>
+            <p class="case-sub">Field reps and home-office analysts at a life sciences consultancy needed answers from complex prescriber data without writing SQL.</p>
+            <dl class="case-stats">
+              <div><dt>Accuracy bar hit</dt><dd>70%+</dd></div>
+              <div><dt>Validated against</dt><dd>40 to 50 business questions</dd></div>
+            </dl>
+            <details>
+              <summary>Read the full case study</summary>
+              <p><strong>Problem.</strong> Getting answers from commercial and prescriber data meant writing SQL or waiting on an analytics team, too slow for territory-level decisions.</p>
+              <p><strong>Approach.</strong> I defined the semantic layer, the role-based access rules (field reps scoped to their own territory, home office given full visibility), and the accuracy bar for a text-to-SQL conversational agent, then coordinated the build and validation with the data and AI engineering team.</p>
+              <p><strong>Outcome.</strong> The agent hit a 70%+ accuracy bar across 40 to 50 validated business questions, with role-based access strictly enforced on every query.</p>
+            </details>
+            <div class="stack"><span>Cortex Analyst</span><span>Cortex Agents</span><span>Streamlit</span><span>RBAC</span></div>
+          </article>
+
+          <article class="case" data-industry="Healthcare">
+            <span class="tag tag-pink">Healthcare</span>
+            <h3>Enterprise Analytics Platform Modernization</h3>
+            <p class="case-sub">A legacy on-premise reporting stack couldn't keep pace with 20+ data sources, pushing daily reports back by 6 to 7 hours.</p>
+            <dl class="case-stats">
+              <div><dt>Delay removed</dt><dd>6 to 7 hours daily</dd></div>
+              <div><dt>Reliability</dt><dd>95%+ pipeline SLA</dd></div>
+            </dl>
+            <details>
+              <summary>Read the full case study</summary>
+              <p><strong>Problem.</strong> An on-premise SQL Server setup across HR, CRM, payroll, and ad platforms couldn't scale. Reports meant for 8am were landing mid-afternoon, slowing business decisions.</p>
+              <p><strong>Approach.</strong> I led the migration to a modern cloud data stack, coordinating ingestion, transformation, orchestration, and reporting layers while keeping the business running through cutover, then stayed on to own production support.</p>
+              <p><strong>Outcome.</strong> Reports now land by 8am daily across 103 BI extracts, with 95%+ pipeline reliability and 90% of incidents resolved inside SLA.</p>
+            </details>
+            <div class="stack"><span>Snowflake</span><span>Fivetran</span><span>dbt</span><span>Prefect</span><span>Tableau</span></div>
+          </article>
+
+          <article class="case" data-industry="Healthcare">
+            <span class="tag tag-pink">Healthcare</span>
+            <h3>Post-Acquisition Data Unification</h3>
+            <p class="case-sub">An acquisition left two companies on two entirely separate reporting stacks, with 1,200 reports to reconcile.</p>
+            <dl class="case-stats">
+              <div><dt>Reports migrated</dt><dd>1,200</dd></div>
+              <div><dt>QA bar</dt><dd>95%+ accuracy</dd></div>
+            </dl>
+            <details>
+              <summary>Read the full case study</summary>
+              <p><strong>Problem.</strong> The acquired company's reporting ran on an unrelated database and BI tool, completely disconnected from the parent company's cloud data warehouse.</p>
+              <p><strong>Approach.</strong> I coordinated the refactor of every legacy query into the parent's warehouse syntax and managed QA against a 95% accuracy bar before cutover.</p>
+              <p><strong>Outcome.</strong> All 1,200 reports migrated and validated, the legacy database fully decommissioned, and one unified data warehouse across both organizations.</p>
+            </details>
+            <div class="stack"><span>Snowflake</span><span>dbt Cloud</span><span>Metabase</span><span>Jira</span></div>
+          </article>
+
+          <article class="case" data-industry="Healthcare">
+            <span class="tag tag-pink">Healthcare</span>
+            <h3>Greenfield Clinical Analytics Platform</h3>
+            <p class="case-sub">A healthcare provider was locked into a black-box vendor that hid how its own metrics were calculated, after one prior fix attempt had already failed.</p>
+            <dl class="case-stats">
+              <div><dt>Prior attempt</dt><dd>Failed rebuild</dd></div>
+              <div><dt>Outcome</dt><dd>Fully independent post-handover</dd></div>
+            </dl>
+            <details>
+              <summary>Read the full case study</summary>
+              <p><strong>Problem.</strong> The client was fully dependent on a third-party vendor that obscured its own ETL logic and blocked integration with the client's clinical and CRM systems.</p>
+              <p><strong>Approach.</strong> I led the build of a fully in-house, auditable analytics platform on an open-source clinical data framework, standing up ingestion from payer claims and EMR systems, a governed data architecture, and self-service BI.</p>
+              <p><strong>Outcome.</strong> The client's own team now runs the platform independently, with care gap and risk-adjustment metrics transparent and auditable for the first time.</p>
+            </details>
+            <div class="stack"><span>Snowflake</span><span>dbt</span><span>Azure Data Factory</span><span>Power BI</span><span>Python</span></div>
+          </article>
+
+          <article class="case" data-industry="Technology &amp; Manufacturing">
+            <span class="tag tag-orange">Technology &amp; Manufacturing</span>
+            <h3>AI-Powered Supply Chain Chatbot</h3>
+            <p class="case-sub">A global hardware manufacturer's logistics team had no self-service way to check shipment data, and every question meant waiting on engineering.</p>
+            <dl class="case-stats">
+              <div><dt>Query accuracy</dt><dd>90%+</dd></div>
+              <div><dt>Response time</dt><dd>Under 30 seconds at load</dd></div>
+            </dl>
+            <details>
+              <summary>Read the full case study</summary>
+              <p><strong>Problem.</strong> Logistics and procurement teams had no self-service access to shipment and freight data, slowing decisions and underusing the company's own analytics.</p>
+              <p><strong>Approach.</strong> I defined requirements and a hard performance bar, under 30 seconds for 20 concurrent users, for a natural-language chatbot over the company's ERP and logistics data, then worked with engineering through load testing to validate it before launch.</p>
+              <p><strong>Outcome.</strong> 90%+ query accuracy and roughly 50% faster answers than the manual process, with the SLA proven under real concurrent load before go-live.</p>
+            </details>
+            <div class="stack"><span>Snowflake Cortex</span><span>Cortex Analyst</span><span>Streamlit</span><span>ERP integration</span></div>
+          </article>
+
+          <article class="case" data-industry="Investment Management">
+            <span class="tag tag-yellow">Investment Management</span>
+            <h3>Secure AI Research Insights Engine</h3>
+            <p class="case-sub">An investment firm needed to query over a decade of proprietary research conversationally, under a strict no-third-party-exposure constraint.</p>
+            <dl class="case-stats">
+              <div><dt>Research history</dt><dd>10+ years, instantly queryable</dd></div>
+              <div><dt>Data exposure</dt><dd>Zero, fully self-hosted</dd></div>
+            </dl>
+            <details>
+              <summary>Read the full case study</summary>
+              <p><strong>Problem.</strong> The client's research notes were a core competitive asset. They could not risk that data training or reaching any external model.</p>
+              <p><strong>Approach.</strong> I scoped and delivered a fully self-hosted AI pipeline, including a custom step to extract images embedded inside the research data, so every part of the system stayed inside the client's own environment.</p>
+              <p><strong>Outcome.</strong> The research team can now query ten-plus years of notes in natural language in seconds, with zero data ever leaving their infrastructure.</p>
+            </details>
+            <div class="stack"><span>Snowflake Cortex AI</span><span>Self-hosted LLM</span><span>Custom data pipeline</span></div>
+          </article>
+
+          <article class="case" data-industry="Internal Platforms">
+            <span class="tag tag-ink">Internal Platform · kipi.ai</span>
+            <h3>Internal AI Analytics Assistant</h3>
+            <p class="case-sub">kipi.ai's own internal reporting had outgrown its BI platform as usage scaled across three business units.</p>
+            <dl class="case-stats">
+              <div><dt>Self-service adoption</dt><dd>65% in Q1 post-launch</dd></div>
+              <div><dt>Turnaround</dt><dd>48 hrs to under 24 hrs</dd></div>
+            </dl>
+            <details>
+              <summary>Read the full case study</summary>
+              <p><strong>Problem.</strong> Internal reporting across logistics, leasing, and accounting had outgrown the existing BI platform's scalability ceiling.</p>
+              <p><strong>Approach.</strong> I built the business case and led migration of 120+ executive dashboards to a modern cloud BI stack, then launched an internal AI assistant so non-technical stakeholders could query data themselves.</p>
+              <p><strong>Outcome.</strong> 35% platform performance improvement and 65% self-service adoption in the first quarter, with zero disruption to leadership reporting during the migration.</p>
+            </details>
+            <div class="stack"><span>Snowflake</span><span>Snowflake Cortex</span><span>Tableau</span></div>
+          </article>
+
+        </div>
+        <p class="scroll-end">You've reached the end of the portfolio.</p>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<script>
+  (function(){
+    var links = document.querySelectorAll('.side-link');
+    var views = {
+      about: document.getElementById('view-about'),
+      resume: document.getElementById('view-resume'),
+      portfolio: document.getElementById('view-portfolio')
+    };
+    function show(id){
+      if(!views[id]) id = 'about';
+      Object.keys(views).forEach(function(k){ views[k].hidden = (k !== id); });
+      links.forEach(function(l){
+        var active = l.getAttribute('data-view') === id;
+        l.classList.toggle('active', active);
+      });
+      history.replaceState(null, '', '#' + id);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    links.forEach(function(l){
+      l.addEventListener('click', function(){ show(l.getAttribute('data-view')); });
+    });
+    var startHash = location.hash.replace('#','');
+    show(views[startHash] ? startHash : 'about');
+
+    var filterBtns = document.querySelectorAll('.filter-btn');
+    var cases = document.querySelectorAll('#case-grid .case');
+    function applyFilter(filter){
+      filterBtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-filter') === filter); });
+      cases.forEach(function(c){
+        c.hidden = (filter !== 'all' && c.getAttribute('data-industry') !== filter);
+      });
+    }
+    filterBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){ applyFilter(btn.getAttribute('data-filter')); });
+    });
+
+    document.querySelectorAll('.tag-link, .portfolio-cta').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        show('portfolio');
+        applyFilter(btn.getAttribute('data-filter') || 'all');
+      });
+    });
+  })();
+</script>
+</body>
+</html>
